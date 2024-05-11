@@ -1,0 +1,9 @@
+# un txt
+
+comando_para_iniciar_venv.txt
+
+# carpeta con el entorno virtual de python que tiene pandas y esas cosas
+
+forense_env/
+
+__pycahce__/
