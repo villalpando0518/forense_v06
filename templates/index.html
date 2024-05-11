@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+</head>
+<body>
+    <h1>PREDICCION ETARIA CON ALGORITMOS DE INTELIGENCIA ARTIFICIAL</h1>
+    <h2>Selecciona un algoritmo</h2>
+        <div class="dropdown">
+          <button class="dropbtn">Selecciona un algoritmo   </button>
+          <div class="dropdown-content">
+            <a href="#">Algoritmo SVM</a> 
+            <a href="#">Arboles de decision</a> 
+          </div>
+        </div>
+    <h2>Selecciona un archivo de Excel</h2>
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <input type="file" name="spreadsheet_file">
+        <input type="submit" value="Upload">
+    </form>
+
+<!--Mostrando el resultado del proceso-->
+    <h2>Tabla con predicciones</h2>
+<div id="table-container" style="width: 550px; height: 210px; padding: 10px;">
+    <div id="processed-results">
+       {% if processed_results %} 
+           <table>
+             <tbody>
+               {% for row in processed_results[1: min(11, table_length)] %} 
+               <tr>
+                   {% for value in row %}
+                     <td>{{ value }}</td>
+                   {% endfor %}
+                 </tr>
+               {% endfor %}
+             </tbody>
+           </table> 
+        {% else %}
+           <p>No results available yet.</p>
+        {% endif %}
+    </div>
+  </div>
+</body>
+</html>
+
