@@ -6,17 +6,18 @@
 </head>
 <body>
     <h1>PREDICCION ETARIA CON ALGORITMOS DE INTELIGENCIA ARTIFICIAL</h1>
+<!--Menus y seleccion de archivo-->
     <h2>Selecciona un algoritmo</h2>
-        <div class="dropdown">
-          <button class="dropbtn">Selecciona un algoritmo   </button>
-          <div class="dropdown-content">
-            <a href="#">Algoritmo SVM</a> 
-            <a href="#">Arboles de decision</a> 
-          </div>
-        </div>
+
+
     <h2>Selecciona un archivo de Excel</h2>
     <form method="POST" action="/" enctype="multipart/form-data">
         <input type="file" name="spreadsheet_file">
+        <select name="algorithm_choice">
+            <option value="algorithm1">SVM Maquinas de Vectores</option>
+            <option value="algorithm2">Arboles de Decisión</option>
+            <option value="algorithm3">Redes Neuronales</option>
+        </select>
         <input type="submit" value="Upload">
     </form>
 

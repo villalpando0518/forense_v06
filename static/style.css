@@ -1,9 +1,9 @@
 body {
-    background-color: #212121;  /* Example light gray color - change if you'd like */
-    text-align: center;        /* Centers text content */
+    background-color: #212121;  /* Color gris claro*/
+    text-align: center;        /* Centra el texto */
     font-family: Arial, sans-serif;
     /*color: #e0e0e0;*/
-    color: #cccccc;  /*Changes the text color whitin the body */ 
+    color: #cccccc;  /*Color para el texto */ 
 }
 
 h1 {
