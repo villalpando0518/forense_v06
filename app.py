@@ -1,22 +1,16 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 import openpyxl
-from General_SVM import main as mandar_procesar
+from utils.General_SVM import main as mandar_procesar
+from routes.dashboard import dashboard
+from routes.auth import login, register
+from db import get_db_connection
 
 import pandas as pd
 import numpy as np 
 
-import sqlite3
-
-
 
 app = Flask(__name__)
 app.secret_key = 'bcd884cedd2df109285ee5b83d42e336'  # Para usar flask flash supongo
-
-
-def get_db_connection(): #Para conectar a la base de datos
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row  # This allows fetching results as dictionaries
-    return conn
 
 # Create Users Table (Only if it doesn't exist)
 def create_users_table():
@@ -58,35 +52,10 @@ def index():
     else:
         return render_template('index.html')
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        name = request.form['name']
-
-        if not username or not password or not name:
-            flash('All fields are required!')
-            return render_template('register.html')
-
-        # Hash the password (VERY IMPORTANT for security)
-        #hashed_password = generate_password_hash(password) 
-        hashed_password = password 
-
-        with get_db_connection() as conn:
-            try:
-                conn.execute(
-                    'INSERT INTO users (username, password, name) VALUES (?, ?, ?)',
-                    (username, hashed_password, name)
-                )
-                conn.commit()
-                flash('Registration successful!')
-                return redirect(url_for('index'))  
-            except sqlite3.IntegrityError:
-                flash('Username already exists!')
-                return render_template('register.html')
-    else:
-        return render_template('register.html')
+#Para organizar en diferentes archivos
+app.add_url_rule('/login', view_func=login, methods=['GET', 'POST'])
+app.add_url_rule('/register', view_func=register, methods=['GET', 'POST'])
+app.add_url_rule('/dashboard', view_func=dashboard)
 
 if __name__ == '__main__':
     app.run(debug=True) 
