@@ -3,6 +3,7 @@ import openpyxl
 from utils.General_SVM import main as mandar_procesar
 from routes.dashboard import dashboard
 from routes.auth import login, register
+from routes.consults import consults, download_consulta
 from db import get_db_connection
 
 import pandas as pd
@@ -19,13 +20,29 @@ def create_users_table():
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
-                password TEXT NOT NULL,
-                name TEXT NOT NULL
+                password TEXT NOT NULL
+            )
+        ''')
+def create_consultas_table():
+    with get_db_connection() as conn:
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS consultas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                temporal BOOLEAN,
+                date TEXT,
+                filename TEXT,
+                algorithm TEXT,
+                data_name TEXT,
+                content TEXT,
+                FOREIGN KEY (user_id) REFERENCES users(id)
             )
         ''')
 
-# Inicializa la base de datos
-create_users_table() 
+
+# Inicializa las bases de datos
+create_users_table()
+create_consultas_table() 
 
 @app.route('/', methods=['GET', 'POST'])  # Maneja GET y POST
 def index():
@@ -52,10 +69,18 @@ def index():
     else:
         return render_template('index.html')
 
+@app.route('/instructions')
+def instructions():
+    return render_template('instructions.html')
+
+
 #Para organizar en diferentes archivos
 app.add_url_rule('/login', view_func=login, methods=['GET', 'POST'])
 app.add_url_rule('/register', view_func=register, methods=['GET', 'POST'])
-app.add_url_rule('/dashboard', view_func=dashboard)
+app.add_url_rule('/dashboard', view_func=dashboard, methods=['GET','POST'])
+app.add_url_rule('/consults', view_func=consults)
+app.add_url_rule('/download_consulta/<int:consulta_id>', view_func=download_consulta, methods=['POST'])
+
 
 if __name__ == '__main__':
     app.run(debug=True) 

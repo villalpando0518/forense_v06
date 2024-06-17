@@ -1,13 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+    <title>Forense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head> 
 </head>
 <body>
-    <h2>Welcome, {{ username }}!</h2> 
-    <p>This is your personal dashboard.</p>
-    
-    </body>
-</html>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="My Logo"> 
+    <h2>User: {{ username }}</h2>     
+    <h1>PREDICCION ETARIA CON I.A.</h1>
+    <a href="{{ url_for('instructions') }}" target="_blank">Instructions</a>
+    <h2>Selecciona un algoritmo</h2>
+        <div class="dropdown">
+          <button class="dropbtn">Selecciona un algoritmo   </button>
+          <div class="dropdown-content">
+            <a href="#">Algoritmo SVM</a> 
+            <a href="#">Arboles de decision</a> 
+          </div>
+        </div>
+    <h2>Selecciona un archivo de Excel</h2>
+    <form method="POST" action="{{url_for('dashboard')}}" enctype="multipart/form-data">
+        <input type="file" name="spreadsheet_file">
+        <input type="submit" value="Upload">
+    </form>
 
+<!--Mostrando el resultado del proceso-->
+    <h2>Tabla con predicciones</h2>
+<div id="table-container" style="width: 550px; height: 210px; padding: 10px;">
+    <div id="processed-results">
+    
+       {% if processed_results %} 
+           <table>
+             <tbody>
+               {% for row in processed_results[1: min(11, table_length)] %} 
+               <tr>
+                   {% for value in row %}
+                     <td>{{ value }}</td>
+                   {% endfor %}
+                 </tr>
+               {% endfor %}
+             </tbody>
+           </table> 
+        {% else %}
+           <p>Aún sin resultados</p>
+        {% endif %}
+        
+
+    </div>
+  </div>
+
+  <form method="POST" action="{{ url_for('dashboard') }}" enctype="multipart/form-data">
+    {% if processed_results %}
+        <input type="hidden" name="filename" value="{{ filename }}"> 
+        <button id="saveButton" name="save_results" type="submit">Guardar Consulta</button>
+    {% endif %}
+</form>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flashes">
+            {% for message in messages %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+</body>
+</html>

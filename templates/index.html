@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Forense</title>
+    <title>Invitado</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
 </head>
 <body>
     <img src="{{ url_for('static', filename='logo.png') }}" alt="My Logo"> 
     <h1>PREDICCION ETARIA CON I.A.</h1>
+    <a href="{{ url_for('instructions') }}" target="_blank">Instructions</a>
     <h2>Selecciona un algoritmo</h2>
         <div class="dropdown">
           <button class="dropbtn">Selecciona un algoritmo   </button>

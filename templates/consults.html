@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consultas previas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+</head>
+<body>
+    <h2>User: {{ username }}</h2>
+    <h2>Previous Consultations</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Archivo original</th>
+                <th>Algoritmo</th>
+                <th>Actión</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+                <tr>
+                    <td>{{ consulta.date }}</td>
+                    <td>{{ consulta.filename }}</td>
+                    <td>{{ consulta.algorithm }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('download_consulta', consulta_id=consulta.id) }}">
+                            <button type="submit">Download</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not consultas %}
+        <p>No previous consultations found.</p>
+    {% endif %}
+
+</body>
+</html>

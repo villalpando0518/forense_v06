@@ -7,7 +7,7 @@ body {
 }
 
 h1 {
-    margin-bottom: 20px;     /* Adds space below the heading */
+    margin-bottom: 10px;     /* Adds space below the heading */
 }
 
 /* Style for the container */
@@ -33,7 +33,8 @@ h1 {
 /* para la tabla */
 table {
     border-collapse: collapse;
-    width: 50%; 
+    width: 45%;
+    margin: 0px auto; 
 }
 
 #table-container {
@@ -42,5 +43,6 @@ table {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px; /* Adjust the pixel value for the rounding effect */
+    overflow-x: auto; 
 }
 
