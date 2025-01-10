@@ -1,0 +1,56 @@
+.
+├── .git
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── branches
+│   ├── config
+│   ├── description
+│   ├── hooks
+│   ├── index
+│   ├── info
+│   ├── logs
+│   ├── objects
+│   ├── packed-refs
+│   └── refs
+├── .gitignore
+├── 29abril.xlsx
+├── __init__.py
+├── __pycache__
+│   └── db.cpython-310.pyc
+├── abril10.xlsx
+├── app.py
+├── database.db
+├── db.py
+├── df_esternon.csv
+├── forense
+│   ├── bin
+│   ├── include
+│   ├── lib
+│   ├── lib64 -> lib
+│   └── pyvenv.cfg
+├── requirements.txt
+├── routes
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── auth.py
+│   ├── consults.py
+│   └── dashboard.py
+├── static
+│   ├── instructions.png
+│   ├── logo.png
+│   ├── original.png
+│   └── style.css
+├── templates
+│   ├── consults.html
+│   ├── dashboard.html
+│   ├── index.html
+│   ├── instructions.html
+│   ├── login.html
+│   └── register.html
+├── tree_output.txt
+└── utils
+    ├── General_Arboles.py
+    ├── General_SVM.py
+    └── __pycache__
+
+20 directories, 34 files
